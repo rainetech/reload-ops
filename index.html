@@ -461,6 +461,37 @@ input.display::placeholder{color:var(--dim);font-size:1rem;font-weight:400}
 .dcred b{font-family:var(--display);font-size:1.4rem;color:var(--amber-2)}
 .parcel .dtitle{color:var(--amber-2)}
 
+/* ---------- KAROO BASE ---------- */
+#scr-base{overflow:hidden;touch-action:none;background:var(--night);user-select:none}
+.basestage{position:absolute;inset:0}
+.basestage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.bhud{position:absolute;left:0;right:0;top:0;padding:10px max(14px,env(safe-area-inset-right,0px)) 0 max(14px,env(safe-area-inset-left,0px));pointer-events:none;z-index:2}
+.bhud .iconbtn{pointer-events:auto}
+.bchip{display:inline-flex;gap:5px;align-items:baseline;background:rgba(11,16,35,.74);box-shadow:inset 0 0 0 1.5px var(--line);border-radius:999px;padding:5px 11px;font-family:var(--display);font-size:.8rem;letter-spacing:.06em;color:var(--muted);white-space:nowrap}
+.bchip b{color:var(--amber-2);font-size:.95rem}
+.bprompt{position:absolute;left:50%;bottom:max(26px,calc(env(safe-area-inset-bottom,0px) + 26px));transform:translateX(-50%);z-index:3;appearance:none;border:0;cursor:pointer;background:var(--amber);color:var(--amber-ink);border-radius:14px;padding:12px 18px 12px 16px;display:flex;flex-direction:column;align-items:flex-start;gap:2px;box-shadow:0 5px 0 #b9761d,0 0 30px rgba(255,181,71,.45);animation:stamp .3s cubic-bezier(.2,1.6,.4,1);min-width:220px;text-align:left}
+.bprompt b{font-family:var(--display);font-size:1.15rem;letter-spacing:.08em;text-transform:uppercase}
+.bprompt span{font-size:.85rem;opacity:.85}
+.bprompt kbd{position:absolute;right:12px;top:12px;font-family:var(--display);font-size:.72rem;border-radius:6px;padding:2px 7px;background:rgba(0,0,0,.18)}
+.bhint{position:absolute;left:50%;top:max(66px,calc(env(safe-area-inset-top,0px) + 66px));transform:translateX(-50%);font-size:.85rem;color:var(--muted);background:rgba(11,16,35,.6);padding:6px 12px;border-radius:999px;pointer-events:none;white-space:nowrap;max-width:94%;overflow:hidden;text-overflow:ellipsis}
+.touchmode .bprompt{bottom:max(26px,calc(env(safe-area-inset-bottom,0px) + 26px));left:auto;right:max(16px,env(safe-area-inset-right,0px));transform:none;min-width:0}
+.btn.big{min-height:84px!important;font-size:1.3rem!important}
+.homeacts .btn.big{grid-column:1/-1}
+.upgrades{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.upg{background:var(--night-2);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:6px;box-shadow:inset 0 0 0 1.5px var(--line)}
+.upg.maxed{box-shadow:inset 0 0 0 1.5px var(--amber)}
+.uphead{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.uphead b{font-weight:600}
+.upg small{color:var(--muted);font-size:.82rem;line-height:1.35}
+.upg small.fx{color:var(--cyan)}
+.upg .btn{margin-top:auto;align-self:flex-start}
+.bicon{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:6px;background:var(--amber);color:var(--amber-ink);font-family:var(--display);font-size:.72rem;font-weight:700;margin-right:8px;vertical-align:middle}
+.acadwrap{max-height:52vh;overflow-y:auto;padding-right:4px}
+.acad{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.acad .skin{min-height:70px;padding:10px}
+.boostrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.boostrow .mchip.sel{box-shadow:inset 0 0 0 2.5px var(--ok);background:rgba(78,229,154,.1)}
+
 /* ---------- HANGAR ---------- */
 .hangar-grid{display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);gap:20px;align-items:start}
 .preview{background:radial-gradient(80% 70% at 50% 40%,#232d5e 0%,var(--panel) 70%);border-radius:var(--r);box-shadow:inset 0 0 0 1.5px var(--line);padding:12px;display:flex;flex-direction:column;gap:8px;align-items:center}
@@ -571,6 +602,9 @@ textarea{width:100%;min-height:110px;font:400 .8rem ui-monospace,Menlo,Consolas,
   .homestage::after{background:linear-gradient(0deg,rgba(8,11,26,.96) 0%,rgba(8,11,26,.86) 42%,rgba(8,11,26,.25) 72%,rgba(8,11,26,.45) 100%)}
 }
 @media (max-width:560px){
+  #baseHud .bchip:nth-child(3){display:none}
+  .bchip{padding:4px 9px;font-size:.72rem}
+  .bhint{top:max(64px,calc(env(safe-area-inset-top,0px) + 64px));font-size:.75rem}
   .home .wrap{gap:14px;padding-bottom:18px}
   .brand .eyebrow .subjs{display:none}
   .brand p{font-size:.92rem}
@@ -650,6 +684,21 @@ textarea{width:100%;min-height:110px;font:400 .8rem ui-monospace,Menlo,Consolas,
     </div>
     <div id="mapBody"></div>
   </div>
+</section>
+
+<section class="screen" id="scr-base" aria-label="Karoo Base" hidden>
+  <div class="basestage" id="baseStage"></div>
+  <div class="bhud">
+    <div class="row" style="gap:8px">
+      <button class="iconbtn" type="button" data-go="title" aria-label="Title screen"><svg viewBox="0 0 24 24"><path d="M4 11 12 4l8 7v9h-5v-6H9v6H4z" fill="currentColor"/></svg></button>
+      <div class="hmission" style="max-width:none">Karoo Base</div>
+      <span class="spacer"></span>
+      <div id="baseHud" class="row" style="gap:6px;flex-wrap:nowrap"></div>
+    </div>
+  </div>
+  <button class="bprompt" id="basePrompt" type="button" hidden></button>
+  <div class="bhint" id="baseHint">Walk with the stick or W A S D. Step on a glowing ring to enter.</div>
+  <div class="touch" id="baseTouch" hidden><div class="joy" id="bjoy"><i></i></div></div>
 </section>
 
 <section class="screen" id="scr-game" aria-label="Mission" hidden>
@@ -2338,7 +2387,7 @@ const STORE_KEY = 'reload-ops-v1';
 const REDUCED = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 function defaults() {
   return {
-    v: 1, pilot: '', xp: 0, credits: 0, cloud: null, streak: { last: null, count: 0 },
+    v: 1, pilot: '', xp: 0, credits: 0, scrap: 0, upgrades: {}, items: {}, cloud: null, streak: { last: null, count: 0 },
     equipped: { mech: 'sand', weapon: 'plasma' },
     missions: {}, best: {}, medals: {}, learned: {}, weak: {}, adapt: {}, review: {}, missionNo: 0,
     log: [], days: {},
@@ -3457,7 +3506,7 @@ function makeWaves(m) {
 }
 function freshState(extra) {
   return Object.assign({
-    on: true, demo: false, paused: false, wave: 0, queue: [], spawnT: 1.6, gap: 0,
+    on: true, demo: false, hub: false, paused: false, wave: 0, queue: [], spawnT: 1.6, gap: 0,
     enemies: [], bullets: [], shots: [], pickups: [], parts: [], floats: [], hits: [], base: 100, boss: null,
     combo: 0, comboT: 0, bestCombo: 0, score: 0, kills: 0, shake: 0, firing: false, fireCd: 0, keys: {}, joy: { x: 0, y: 0 },
     aim: null, mouseT: 0, gunI: 0, ending: false, queuedBoss: false, t: 0, flash: 0, hurt: 0, muzzle: 0, target: null,
@@ -3468,9 +3517,11 @@ function freshState(extra) {
 }
 function startMission(m) {
   if (G.demo) stopDemo();
+  if (G.hub) stopBase();
   S.missionNo++;
-  const mag = magSize();
-  Object.assign(G, freshState({ mission: m, waves: makeWaves(m), mag, ammo: mag, bossDone: !m.boss }));
+  const mag = magSize(), boost = consumeBoosters();
+  Object.assign(G, freshState({ mission: m, waves: makeWaves(m), mag, ammo: mag, bossDone: !m.boss, boost, armour: 2 * upLvl('armour'), droneT: 1 }));
+  if (boost.spread) G.pw.spread = 15;
   G.queue = [...G.waves[0]]; G.waveTotal = countQueue(G.queue);
   G.intro = 1.6; G.cine = 0;
   QF.showBrief = undefined;
@@ -3523,9 +3574,9 @@ function stopDemo() {
   $('#scr-game').prepend($('#gl'));
 }
 function resizeCanvas() {
-  const c = cv(), r = (G.demo ? $('#gl') : c).getBoundingClientRect(), dpr = Math.min(2, window.devicePixelRatio || 1);
+  const c = cv(), r = (G.demo || G.hub ? $('#gl') : c).getBoundingClientRect(), dpr = Math.min(2, window.devicePixelRatio || 1);
   G.W = Math.max(300, r.width); G.H = Math.max(300, r.height); G.dpr = dpr;
-  if (!G.demo) { c.width = Math.round(G.W * dpr); c.height = Math.round(G.H * dpr); }
+  if (!G.demo && !G.hub) { c.width = Math.round(G.W * dpr); c.height = Math.round(G.H * dpr); }
   hudTop(r.top);
   if (G.mode3d) frameCamera();
   else {
@@ -3581,6 +3632,7 @@ function pickTarget(P) {
   return best;
 }
 function update(rdt) {
+  if (G.hub) { G.t += rdt; updateHub(rdt); return; }
   if (G.slowmo > 0) G.slowmo -= rdt;
   const dt = rdt * (G.slowmo > 0 ? .28 : 1), demo = G.demo;
   G.t += dt;
@@ -3635,6 +3687,16 @@ function update(rdt) {
       if (!free) updHUD();
       if (G.ammo === 0 && !free) { G.firing = false; setTimeout(() => G.on && !QF.open && reload(), 240); }
     } else { G.fireCd = .3; AU.empty(); if (!QF.open) reload(); }
+  }
+  // wingman drone
+  if (!demo && upLvl('drone') && !QF.open) {
+    G.droneT -= dt;
+    if (G.droneT <= 0 && G.target && !G.target.dead) {
+      const dx = P.x + 2.4, dz = P.z + 1.2, a = Math.atan2(G.target.z - dz, G.target.x - dx);
+      const b = { x: dx, z: dz, y: 3.4, vx: Math.cos(a) * BULLET_SPEED, vz: Math.sin(a) * BULLET_SPEED, a, life: 1.5, dmg: 1, tgt: G.target, i: 7 };
+      G.target.incoming += 1; G.bullets.push(b); if (G.mode3d) addBulletMesh(b);
+      G.droneT = 1.4; AU.shoot(false);
+    }
   }
   // bullets
   G.bullets.forEach(b => {
@@ -3766,7 +3828,7 @@ function fireOrb(x, y, z, tx, tz, sp) {
 function startDash(dir) {
   const D = G.dash;
   if (!G.on || G.demo || D.cd > 0 || QF.open || G.paused || G.ending) return;
-  D.dir = dir; D.t = .17; D.inv = .32; D.cd = 1.3; G.stats.dashes++;
+  D.dir = dir; D.t = .17; D.inv = .32; D.cd = 1.3 - .25 * upLvl('dash'); G.stats.dashes++;
   burst(G.player.x, 1.5, G.player.z, '#5fe3ff', 14, 7); G.shake = Math.max(G.shake, 2.5);
   if (R3.ok) R3.roll = (R3.roll || 0) - dir * .12;
   AU.dash(); updHUD();
@@ -3808,7 +3870,7 @@ function addOD(n) {
 }
 function activateOD() {
   if (!G.on || G.demo || G.od < 100 || G.odOn > 0 || QF.open || G.paused || G.ending) return;
-  G.od = 0; G.odOn = OD_TIME; G.stats.ods++;
+  G.od = 0; G.odOn = OD_TIME + 1.5 * upLvl('od'); G.stats.ods++;
   callout('Overdrive', 'Triple shot, double damage, no ammo used', 'od');
   G.shake = Math.max(G.shake, 6);
   if (G.mode3d) boomFlash(G.player.x, 2, G.player.z, '#ffb547', 5);
@@ -3839,7 +3901,8 @@ function kill(e) {
   if (G.multi.n >= 2) { callout(G.multi.n === 2 ? 'Double' : G.multi.n === 3 ? 'Triple' : 'Multi kill x' + G.multi.n, '', 'kill'); AU.stinger(G.multi.n); }
   else if (G.combo >= 10 && G.combo % 10 === 0) { callout('Combo x' + G.combo, mult >= 5 ? 'Max score multiplier' : 'Score x' + mult, 'kill'); AU.stinger(4); }
   addOD(e.elite ? 4 : 1);
-  if (e.elite || Math.random() < .09) dropPickup(e.x, e.z);
+  if (e.elite || Math.random() < .09 + .04 * upLvl('scav')) dropPickup(e.x, e.z);
+  if (e.type !== 'mini') { const sc = (e.elite ? 3 : 1) * (1 + upLvl('magnet')); S.scrap = (S.scrap || 0) + sc; G.stats.scrap = (G.stats.scrap || 0) + sc; }
   updHUD();
 }
 function dropPickup(x, z) {
@@ -3870,7 +3933,9 @@ function empBlast() {
   callout('EMP blast', '', 'od'); AU.emp();
 }
 function hitBase(dmg, x) {
+  if (G.armour > 0) { G.armour--; G.shake = Math.max(G.shake, 5); burst(x, 1.2, WORLD.zBase, '#c9d2e8', 16, 9); boomFlash(x, 1.2, WORLD.zBase, '#c9d2e8', 2.5); floatText(x, 3, WORLD.zBase - 2, 'Plating held · ' + G.armour + ' left', '#c9d2e8'); AU.clink(); return; }
   G.base = Math.max(0, G.base - dmg); G.shake = Math.max(G.shake, 9); G.flash = .25; G.waveHit = true;
+  if (G.boost && G.boost.repair && G.base < 40) { G.boost.repair = false; G.base = Math.min(100, G.base + 30); callout('Repair kit', 'Array +30', 'good'); AU.pickup(); }
   if (R3.ok && G.mode3d) { const w = G.FX + 6; R3.wall.material.uniforms.hitU.value = (x + w) / (2 * w); R3.wall.material.uniforms.hitT.value = 0; }
   burst(x, 1.2, WORLD.zBase, '#5fe3ff', 18, 10); boomFlash(x, 1.2, WORLD.zBase, '#5fe3ff', 3);
   AU.base(); updHUD(true);
@@ -3995,6 +4060,8 @@ function init3D() {
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
     renderer.setPixelRatio(Math.min(1.75, window.devicePixelRatio || 1));
     renderer.setClearColor(0x0b1023);
+    renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.08;
+    renderer.physicallyCorrectLights = false;
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     const scene = new THREE.Scene();
@@ -4029,7 +4096,8 @@ function init3D() {
   } catch (e) { R3.ok = false; }
   return R3.ok;
 }
-function std(color, o = {}) { return new THREE.MeshStandardMaterial(Object.assign({ color, roughness: .7, metalness: .15, flatShading: true }, o)); }
+const ENV_I = .28;
+function std(color, o = {}) { return new THREE.MeshStandardMaterial(Object.assign({ color, roughness: .7, metalness: .15, flatShading: true, envMapIntensity: ENV_I }, o)); }
 function basic(color, o = {}) { return new THREE.MeshBasicMaterial(Object.assign({ color }, o)); }
 function glowMat(color, opacity = .5) { return new THREE.MeshBasicMaterial({ color, transparent: true, opacity, blending: THREE.AdditiveBlending, depthWrite: false }); }
 function shadows(obj, cast = true) { obj.traverse(o => { if (o.isMesh) { o.castShadow = cast; o.receiveShadow = false; } }); return obj; }
@@ -4044,6 +4112,15 @@ function buildWorld() {
   }));
   sky.renderOrder = -10; R3.skyMat = sky.material;
   scene.add(sky);
+  // the sky lights everything through an environment map, so metal picks up the dusk
+  R3.skyMesh = sky; R3.envScene = new THREE.Scene();
+  try { R3.pmrem = new THREE.PMREMGenerator(R3.renderer); R3.pmrem.compileEquirectangularShader(); } catch (e) { R3.pmrem = null; }
+  // the sun, with a soft corona and lens flare ghosts
+  const sunTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 256; const x = c.getContext('2d'); const g = x.createRadialGradient(128, 128, 0, 128, 128, 128); g.addColorStop(0, 'rgba(255,250,235,1)'); g.addColorStop(.12, 'rgba(255,230,180,.95)'); g.addColorStop(.3, 'rgba(255,170,100,.35)'); g.addColorStop(1, 'rgba(255,140,80,0)'); x.fillStyle = g; x.fillRect(0, 0, 256, 256); return new THREE.CanvasTexture(c); })();
+  R3.sun = new THREE.Sprite(new THREE.SpriteMaterial({ map: sunTex, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, depthTest: false, fog: false }));
+  R3.sun.scale.set(70, 70, 1); R3.sun.position.set(60, 26, -470); R3.sun.renderOrder = -8; scene.add(R3.sun);
+  const ghostTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d'); const g = x.createRadialGradient(32, 32, 0, 32, 32, 32); g.addColorStop(0, 'rgba(255,255,255,0)'); g.addColorStop(.7, 'rgba(255,255,255,.5)'); g.addColorStop(.85, 'rgba(255,255,255,.9)'); g.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = g; x.fillRect(0, 0, 64, 64); return new THREE.CanvasTexture(c); })();
+  R3.ghosts = [[.35, 1.6, 0x5fe3ff], [.55, .9, 0xffb547], [.8, 2.4, 0xff6bd6], [1.15, 1.2, 0x4ee59a]].map(([k, s, col]) => { const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: ghostTex, color: col, transparent: true, opacity: .22, blending: THREE.AdditiveBlending, depthWrite: false, depthTest: false, fog: false })); sp.scale.set(s, s, 1); sp.renderOrder = 30; sp.userData.k = k; scene.add(sp); return sp; });
   // stars
   const sp = [];
   for (let i = 0; i < 650; i++) { const th = Math.random() * 6.28, y = .12 + Math.pow(Math.random(), .7) * .88, r = Math.sqrt(1 - y * y); sp.push(Math.cos(th) * r * 480, y * 480, Math.sin(th) * r * 480); }
@@ -4252,6 +4329,32 @@ function applyAtmos(name) {
   R3.clouds.forEach(c => c.material.opacity = Math.min(1, c.userData.op * A.clouds));
   R3.rain.visible = A.storm && R3.quality < 2;
   R3.lightningT = A.storm ? 3 + Math.random() * 4 : 0; R3.flashV = 0;
+  if (R3.sun) { R3.sun.visible = !A.storm; R3.sun.material.opacity = name === 'dawn' ? 1 : .85; R3.sun.position.set(name === 'dawn' ? -70 : 60, name === 'dawn' ? 34 : 24, -470); R3.ghosts.forEach(g => g.visible = !A.storm); }
+  rebuildEnv();
+}
+function rebuildEnv() {
+  if (!R3.pmrem || !R3.skyMesh) return;
+  try {
+    R3.envScene.add(R3.skyMesh);
+    const rt = R3.pmrem.fromScene(R3.envScene, .04);
+    R3.scene.add(R3.skyMesh);
+    if (R3.envRT) R3.envRT.dispose();
+    R3.envRT = rt; R3.scene.environment = rt.texture;
+    R3.scene.traverse(o => { if (o.isMesh && o.material && o.material.isMeshStandardMaterial && o.material.envMapIntensity === 1) o.material.envMapIntensity = ENV_I; });
+  } catch (e) { R3.scene.add(R3.skyMesh); }
+}
+function updFlare(camera) {
+  if (!R3.sun || !R3.sun.visible) return;
+  const v = R3.tmp.copy(R3.sun.position).project(camera);
+  const on = v.z < 1 && Math.abs(v.x) < 1.2 && Math.abs(v.y) < 1.2;
+  R3.ghosts.forEach(g => {
+    g.visible = on;
+    if (!on) return;
+    const k = g.userData.k; R3.tmp2.set(v.x * (1 - 2 * k), v.y * (1 - 2 * k), .5).unproject(camera);
+    const d = R3.tmp2.sub(camera.position).normalize();
+    g.position.copy(camera.position).addScaledVector(d, 20);
+    g.material.opacity = .22 * (1 - Math.min(1, Math.hypot(v.x, v.y) / 1.2));
+  });
 }
 function atmosFor(m) {
   if (!m || m.kind === 'demo') return 'dusk';
@@ -4354,6 +4457,8 @@ function soilTexture() {
   const c = document.createElement('canvas'); c.width = c.height = 256; const x = c.getContext('2d');
   x.fillStyle = '#d6cdc8'; x.fillRect(0, 0, 256, 256);
   for (let i = 0; i < 2600; i++) { const v = Math.random(); x.fillStyle = v < .5 ? `rgba(70,45,40,${.08 + Math.random() * .14})` : `rgba(255,240,225,${.06 + Math.random() * .1})`; const s = 1 + Math.random() * 2.5; x.fillRect(Math.random() * 256, Math.random() * 256, s, s); }
+  for (let i = 0; i < 40; i++) { const g = x.createRadialGradient(Math.random() * 256, Math.random() * 256, 0, 128, 128, 40 + Math.random() * 60); g.addColorStop(0, `rgba(90,60,50,${.08 + Math.random() * .1})`); g.addColorStop(1, 'rgba(90,60,50,0)'); x.fillStyle = g; x.fillRect(0, 0, 256, 256); }
+  for (let i = 0; i < 400; i++) { x.fillStyle = `rgba(30,18,20,${.15 + Math.random() * .25})`; x.beginPath(); x.ellipse(Math.random() * 256, Math.random() * 256, .6 + Math.random() * 1.6, .4 + Math.random() * 1, Math.random() * 3, 0, 6.28); x.fill(); }
   for (let i = 0; i < 70; i++) { x.fillStyle = `rgba(60,40,38,${.18 + Math.random() * .2})`; x.beginPath(); x.ellipse(Math.random() * 256, Math.random() * 256, 1.5 + Math.random() * 4, 1 + Math.random() * 3, Math.random() * 3, 0, 6.28); x.fill(); }
   x.strokeStyle = 'rgba(55,35,35,.18)'; x.lineWidth = 1;
   for (let i = 0; i < 9; i++) { let px = Math.random() * 256, py = Math.random() * 256; x.beginPath(); x.moveTo(px, py); for (let k = 0; k < 6; k++) { px += (Math.random() - .5) * 40; py += (Math.random() - .5) * 40; x.lineTo(px, py); } x.stroke(); }
@@ -4386,7 +4491,7 @@ function makeDish() {
   return shadows(g);
 }
 function makeMech(col) {
-  const g = new THREE.Group(), skin = std(col, { metalness: .35, roughness: .42 }), dark = std(0x262e57, { metalness: .45, roughness: .5 }), trim = std(0x151b38, { metalness: .5, roughness: .45 });
+  const g = new THREE.Group(), skin = std(col, { metalness: .55, roughness: .32, flatShading: false }), dark = std(0x262e57, { metalness: .6, roughness: .38, flatShading: false }), trim = std(0x151b38, { metalness: .7, roughness: .3, flatShading: false });
   const glass = basic(0x7ff0ff), glowO = basic(0xffa040);
   // legs stride when moving; the torso swivels to aim
   const legs = new THREE.Group(); g.add(legs);
@@ -4588,6 +4693,15 @@ function resetScene() {
   applyAtmos(atmosFor(G.mission));
   R3.wall.material.uniforms.hitT.value = 9;
   R3.camX = 0; R3.camLX = 0; R3.roll = 0; R3.kick = 0;
+  if (!R3.drone) {
+    const d = new THREE.Group();
+    d.add(new THREE.Mesh(new THREE.SphereGeometry(.42, 16, 12), std(0xd9a65b, { flatShading: false, metalness: .4, roughness: .4 })));
+    const eye = new THREE.Mesh(new THREE.SphereGeometry(.14, 10, 8), basic(0x5fe3ff)); eye.position.set(0, .05, -.38); d.add(eye);
+    R3.droneRing = new THREE.Mesh(new THREE.TorusGeometry(.62, .05, 6, 24), glowMat(0x5fe3ff, .8)); R3.droneRing.rotation.x = Math.PI / 2; d.add(R3.droneRing);
+    const fin = new THREE.Mesh(new THREE.BoxGeometry(.9, .06, .3), std(0x262e57)); fin.position.z = .3; d.add(fin);
+    d.visible = false; R3.scene.add(d); R3.drone = d;
+  }
+  R3.drone.position.set(G.player.x + 2.4, 3.4, G.player.z + 1.2);
   const u = R3.mech.userData;
   u.skin.color.set(mechCol());
   const wp = WPN(); u.tipMat.color.set(wp.col === 'rainbow' ? '#ffd166' : wp.col);
@@ -4653,7 +4767,8 @@ function render3D(dt) {
   R3.dust.geometry.attributes.position.needsUpdate = true;
   R3.wall.material.uniforms.time.value = now;
   if (!G.paused) { R3.wall.material.uniforms.hitT.value += dt; updWrecks(dt); updWeather(dt, now); }
-  R3.pylons.visible = !G.demo;
+  R3.pylons.visible = !G.demo && !G.hub;
+  if (R3.drone) { const show = upLvl('drone') > 0 && !G.demo && !G.hub; R3.drone.visible = show; if (show) { const tx = P.x + 2.4, tz = P.z + 1.2; R3.drone.position.x += (tx - R3.drone.position.x) * Math.min(1, pdt * 6); R3.drone.position.z += (tz - R3.drone.position.z) * Math.min(1, pdt * 6); R3.drone.position.y = 3.4 + Math.sin(now * 4) * .15; R3.drone.rotation.y = P.a; R3.droneRing.rotation.z += pdt * 4; } }
   // enemies
   G.enemies.forEach(e => {
     if (!e.mesh) return;
@@ -4724,7 +4839,8 @@ function render3D(dt) {
     camera.position.set(P.x + lerp(-3.5, -10, wide) + sway * 1.5, 3.3, P.z + lerp(22, 20, wide));
     R3.tmp2.set(P.x + lerp(.5, -3.6, wide) + sway * .8, 3.5, P.z - 25);
     camera.lookAt(R3.tmp2);
-  } else battleCamera(pdt, now);
+  } else if (G.hub) hubCamera(pdt); else battleCamera(pdt, now);
+  updFlare(camera);
   if (R3.grade) { R3.grade.uniforms.hurt.value = Math.max(0, G.hurt) * (S.settings.reducedFx ? .4 : 1); R3.grade.uniforms.od.value = G.odOn > 0 ? 1 : 0; }
   if (R3.composer && R3.useBloom) R3.composer.render(); else renderer.render(scene, camera);
   drawOverlay();
@@ -4747,7 +4863,7 @@ function battleCamera(dt, now) {
   if (Math.abs(camera.fov - fov) > .05) { camera.fov += (fov - camera.fov) * Math.min(1, dt * 6); camera.updateProjectionMatrix(); }
 }
 function drawOverlay() {
-  if (G.demo) return;
+  if (G.demo || G.hub) return;
   const c = cv(), x = c.getContext('2d');
   x.setTransform(G.dpr, 0, 0, G.dpr, 0, 0); x.clearRect(0, 0, G.W, G.H);
   drawMarks(x);
@@ -4895,7 +5011,7 @@ function drawMech2D(x, px, py, r, a, col, stun) {
 const HUDC = {};
 const LIGHTNING = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 2 5 13.5h5.6L9.5 22 19 9.8h-5.7z" fill="currentColor"/></svg>';
 function updHUD(force) {
-  if ((!G.on && !force) || G.demo) return;
+  if ((!G.on && !force) || G.demo || G.hub) return;
   const set = (k, v, fn) => { if (force || HUDC[k] !== v) { HUDC[k] = v; fn(v); } };
   set('wave', G.boss ? 'Boss' : (G.wave + 1) + '/' + (G.waves ? G.waves.length : 3), v => $('#hudWave').textContent = v);
   const od = G.odOn > 0;
@@ -4952,6 +5068,12 @@ function touchOn() { if (TOUCH.on) return; TOUCH.on = true; $('#touch').hidden =
 function bindGameInput() {
   const c = cv();
   window.addEventListener('keydown', e => {
+    if (currentScreen === 'base' && G.hub && $('#modal').hidden) {
+      const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].includes(e.key)) e.preventDefault();
+      if (k === 'e' || k === 'Enter' || k === ' ') hubInteract(); else G.keys[k] = true;
+      return;
+    }
     if (currentScreen !== 'game') return;
     if (QF.open) return qKey(e);
     if ($('#modal').hidden === false) return;
@@ -4986,14 +5108,18 @@ function bindGameInput() {
   c.addEventListener('pointermove', e => { if (!G.on) return; if (e.pointerType === 'mouse' || G.firing) { G.aim = pos(e); G.mouseT = performance.now(); } });
   const up = () => { G.firing = false; G.pointerDown = false; };
   c.addEventListener('pointerup', up); c.addEventListener('pointercancel', up);
-  // joystick
-  const joy = $('#joy'), knob = joy.querySelector('i');
-  let jid = null, jc = null;
-  joy.addEventListener('pointerdown', e => { e.preventDefault(); jid = e.pointerId; const r = joy.getBoundingClientRect(); jc = { x: r.left + r.width / 2, y: r.top + r.height / 2 }; try { joy.setPointerCapture(jid); } catch (er) { } jmove(e); });
-  const jmove = e => { if (e.pointerId !== jid) return; let dx = e.clientX - jc.x, dy = e.clientY - jc.y; const d = Math.hypot(dx, dy), m = 50; if (d > m) { dx *= m / d; dy *= m / d; } knob.style.transform = `translate(${dx}px,${dy}px)`; G.joy = { x: dx / m, y: dy / m }; };
-  joy.addEventListener('pointermove', jmove);
-  const jend = e => { if (e.pointerId !== jid) return; jid = null; knob.style.transform = ''; G.joy = { x: 0, y: 0 }; };
-  joy.addEventListener('pointerup', jend); joy.addEventListener('pointercancel', jend);
+  // joysticks (battle and base)
+  const bindJoy = joy => {
+    const knob = joy.querySelector('i'); let jid = null, jc = null;
+    const jmove = e => { if (e.pointerId !== jid) return; let dx = e.clientX - jc.x, dy = e.clientY - jc.y; const d = Math.hypot(dx, dy), m = 50; if (d > m) { dx *= m / d; dy *= m / d; } knob.style.transform = `translate(${dx}px,${dy}px)`; G.joy = { x: dx / m, y: dy / m }; };
+    joy.addEventListener('pointerdown', e => { e.preventDefault(); jid = e.pointerId; const r = joy.getBoundingClientRect(); jc = { x: r.left + r.width / 2, y: r.top + r.height / 2 }; try { joy.setPointerCapture(jid); } catch (er) { } jmove(e); });
+    joy.addEventListener('pointermove', jmove);
+    const jend = e => { if (e.pointerId !== jid) return; jid = null; knob.style.transform = ''; G.joy = { x: 0, y: 0 }; };
+    joy.addEventListener('pointerup', jend); joy.addEventListener('pointercancel', jend);
+  };
+  bindJoy($('#joy')); bindJoy($('#bjoy'));
+  $('#basePrompt').addEventListener('click', hubInteract);
+  $('#baseStage').addEventListener('pointerdown', e => { if (e.pointerType === 'touch') { touchOn(); $('#baseTouch').hidden = false; } });
   const fire = $('#tFire');
   fire.addEventListener('pointerdown', e => { e.preventDefault(); AU.ensure(); G.aim = null; G.firing = true; fire.classList.add('on'); try { fire.setPointerCapture(e.pointerId); } catch (er) { } });
   const fend = () => { G.firing = false; fire.classList.remove('on'); };
@@ -5005,6 +5131,7 @@ function bindGameInput() {
   $('#odBtn').innerHTML = LIGHTNING + '<span>0%</span>';
   $('#btnPause').addEventListener('click', pauseMenu);
   window.addEventListener('resize', () => { if (G.on) resizeCanvas(); });
+  window.addEventListener('keyup', e => { if (currentScreen === 'base') { const k = e.key.length === 1 ? e.key.toLowerCase() : e.key; G.keys[k] = false; } });
   document.addEventListener('visibilitychange', () => { if (document.hidden && G.on && !G.demo && !QF.open && $('#modal').hidden) pauseMenu(); });
 }
 
@@ -5259,6 +5386,7 @@ function cloudBadge() {
 /* ---------- Credits ---------- */
 function addCredits(n, why) {
   if (!n) return;
+  if (n > 0 && G.on && !G.demo && !G.hub && G.boost && G.boost.double) n *= 2;
   S.credits = Math.max(0, (S.credits || 0) + n);
   if (G.on && !G.demo) G.stats.credits = (G.stats.credits || 0) + n;
   if (why && !G.on) toast('+' + fmtNum(n) + ' Credits: ' + why);
@@ -5272,7 +5400,7 @@ function watchAwards() {
   if (CLOUD.unsubAwards) CLOUD.unsubAwards();
   CLOUD.unsubAwards = awardsRef().where('status', 'in', ['open', 'active']).onSnapshot(snap => {
     CLOUD.awards = snap.docs.map(d => Object.assign({ id: d.id }, d.data()));
-    checkBounties().then(() => { if (currentScreen === 'home') { renderNotice(); showParcels(); } });
+    checkBounties().then(() => { if (currentScreen === 'home') { renderNotice(); showParcels(); } if (HUB.on) refreshBoard(); });
   }, () => { });
 }
 function openGifts() { return CLOUD.awards.filter(a => a.type === 'gift' && a.status === 'open'); }
@@ -5444,16 +5572,310 @@ function friendlyAuth(e) {
 }
 function timeAgo(t) { const m = Math.round((Date.now() - t) / 60000); if (m < 2) return 'just now'; if (m < 60) return m + ' min ago'; const h = Math.round(m / 60); if (h < 36) return h + ' h ago'; return Math.round(h / 24) + ' days ago'; }
 
+/* ================= KAROO BASE (the hub world) =================
+   Between missions the mech walks around the base. Each building opens a part of the game:
+   Launch Pad (campaign), Academy (training), Workshop (upgrades), Market (scrap and boosters),
+   Hangar (skins and medals), Notice Board (parcels and bounties), Revision tower (Revision Ops). */
+const SPOTS = [
+  { id: 'launch', name: 'Launch Pad', verb: 'Open the mission map', x: 0, z: -40, r: 7.5, door: [0, -32] },
+  { id: 'workshop', name: 'Workshop', verb: 'Upgrade the mech', x: -12, z: -24, r: 5, door: [-7.5, -22] },
+  { id: 'market', name: 'Market', verb: 'Trade scrap and boosters', x: 12, z: -24, r: 5, door: [7.5, -22] },
+  { id: 'academy', name: 'Academy', verb: 'Do some training', x: -12, z: -8, r: 5, door: [-7.5, -6] },
+  { id: 'hangar', name: 'Hangar', verb: 'Paint jobs and medals', x: 12, z: -8, r: 5, door: [7.5, -6] },
+  { id: 'notice', name: 'Notice Board', verb: 'Parcels and bounties', x: 0, z: -16, r: 1.6, door: [0, -13.5] },
+  { id: 'revision', name: 'Revision Tower', verb: 'Revision Ops: mixed codes', x: -5, z: 0, r: 2.2, door: [-2, 0] },
+];
+const UPGRADES = [
+  { id: 'dash', name: 'Dash servos', desc: 'Dash recharges faster.', max: 3, cost: [300, 700, 1400], fx: l => 'Cooldown ' + (1.3 - .25 * l).toFixed(2) + ' s' },
+  { id: 'od', name: 'Overdrive core', desc: 'Overdrive lasts longer.', max: 3, cost: [400, 900, 1800], fx: l => 'Overdrive ' + (7 + 1.5 * l) + ' s' },
+  { id: 'armour', name: 'Array plating', desc: 'The array shrugs off the first drones that reach it each mission.', max: 3, cost: [500, 1000, 2000], fx: l => l * 2 + ' hits absorbed' },
+  { id: 'scav', name: 'Scavenger scanner', desc: 'More power-ups drop from destroyed drones.', max: 3, cost: [350, 800, 1500], fx: l => Math.round((.09 + .04 * l) * 100) + '% drop chance' },
+  { id: 'magnet', name: 'Salvage magnet', desc: 'Pull in more scrap from every kill.', max: 2, cost: [300, 700], fx: l => (1 + l) + ' scrap per kill' },
+  { id: 'drone', name: 'Wingman drone', desc: 'A little drone flies beside you and shoots at your target.', max: 1, cost: [2500], fx: l => l ? 'Active' : '' },
+];
+const BOOSTERS = [
+  { id: 'double', name: 'Double Credits', desc: 'Twice the Credits for one mission.', cost: 300, icon: '2×' },
+  { id: 'repair', name: 'Repair kit', desc: 'Heals the array by 30 the first time it drops below 40.', cost: 150, icon: '+' },
+  { id: 'spread', name: 'Spread start', desc: 'Begin the mission with 15 seconds of spread shot.', cost: 120, icon: 'W' },
+];
+const SCRAP_PRICE = 4;
+const upLvl = id => (S.upgrades && S.upgrades[id]) || 0;
+const itemN = id => (S.items && S.items[id]) || 0;
+const HUB = { on: false, near: null, built: false, labels: [], lights: [], windows: [] };
+const hubAvailable = () => S.settings.gfx !== '2d' && typeof THREE !== 'undefined' && !!S.pilot;
+
+/* ---------- building the base ---------- */
+function textSprite(text, color = '#ffffff', scale = 7) {
+  const c = document.createElement('canvas'); c.width = 512; c.height = 128; const x = c.getContext('2d');
+  x.font = '700 64px "Chakra Petch", "Rajdhani", system-ui, sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle';
+  x.shadowColor = 'rgba(0,0,0,.8)'; x.shadowBlur = 14; x.lineWidth = 8; x.strokeStyle = 'rgba(11,16,35,.9)'; x.strokeText(text, 256, 64); x.fillStyle = color; x.fillText(text, 256, 64);
+  const t = new THREE.CanvasTexture(c); t.anisotropy = 4;
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: t, transparent: true, depthWrite: false })); sp.scale.set(scale, scale / 4, 1); return sp;
+}
+function buildBase() {
+  if (HUB.built || !R3.ok) return; HUB.built = true;
+  const g = new THREE.Group(); g.visible = false; R3.base = g; R3.scene.add(g);
+  const concrete = new THREE.MeshStandardMaterial({ color: 0x8e8f9a, roughness: .85, metalness: .05 }), steel = new THREE.MeshStandardMaterial({ color: 0x5c667f, roughness: .35, metalness: .75 }), rust = new THREE.MeshStandardMaterial({ color: 0x8a4a2e, roughness: .9, metalness: .2 });
+  const amberGlass = new THREE.MeshStandardMaterial({ color: 0xffb547, emissive: 0xffb547, emissiveIntensity: 1.2, roughness: .3 }), cyanGlass = new THREE.MeshStandardMaterial({ color: 0x5fe3ff, emissive: 0x5fe3ff, emissiveIntensity: 1.1, roughness: .3 });
+  const paintMat = col => new THREE.MeshStandardMaterial({ color: col, roughness: .55, metalness: .25 });
+  const sh = o => { o.castShadow = true; o.receiveShadow = true; return o; };
+  const box = (w, h, d, m, x, y, z) => { const b = sh(new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m)); b.position.set(x, y, z); return b; };
+  const cyl = (rt, rb, h, m, x, y, z, seg = 24) => { const b = sh(new THREE.Mesh(new THREE.CylinderGeometry(rt, rb, h, seg), m)); b.position.set(x, y, z); return b; };
+  const win = (w, h, m, x, y, z, ry = 0) => { const p = new THREE.Mesh(new THREE.PlaneGeometry(w, h), m); p.position.set(x, y, z); p.rotation.y = ry; HUB.windows.push(p); return p; };
+  const lamp = (x, y, z, col, d = 14, i = 1.6) => { const l = new THREE.PointLight(col, i, d, 2); l.position.set(x, y, z); HUB.lights.push(l); return l; };
+  // paved plaza with a painted centre line and walkway markings
+  const plaza = new THREE.Mesh(new THREE.PlaneGeometry(30, 56), new THREE.MeshStandardMaterial({ map: plazaTexture(), roughness: .95, metalness: .02, envMapIntensity: .15, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }));
+  plaza.rotation.x = -Math.PI / 2; plaza.position.set(0, .05, -18); plaza.receiveShadow = true; g.add(plaza);
+  // Launch Pad: round concrete apron, light ring, gantry and a holographic mission beacon
+  g.add(cyl(7, 7.4, .4, concrete, 0, .2, -40, 48));
+  for (let i = 0; i < 16; i++) { const a = i / 16 * Math.PI * 2; const l = new THREE.Mesh(new THREE.SphereGeometry(.16, 8, 6), new THREE.MeshBasicMaterial({ color: i % 2 ? 0xffb547 : 0x5fe3ff })); l.position.set(Math.cos(a) * 6.6, .5, -40 + Math.sin(a) * 6.6); g.add(l); }
+  const gantry = new THREE.Group(); gantry.position.set(5.5, 0, -45);
+  gantry.add(cyl(.25, .3, 9, steel, 0, 4.5, 0, 10), box(5, .4, .4, steel, -2.3, 8.8, 0), box(.4, 9, .4, steel, 0, 4.5, 0));
+  for (let y = 1; y < 9; y += 1.6) gantry.add(box(.6, .12, .6, rust, 0, y, 0));
+  g.add(gantry); g.add(lamp(3.5, 8.6, -45, 0xffd9a0, 18, 2));
+  HUB.beacon = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.6, 7, 24, 1, true), new THREE.MeshBasicMaterial({ color: 0x5fe3ff, transparent: true, opacity: .18, side: THREE.DoubleSide, blending: THREE.AdditiveBlending, depthWrite: false }));
+  HUB.beacon.position.set(0, 3.9, -40); g.add(HUB.beacon);
+  HUB.holo = new THREE.Mesh(new THREE.OctahedronGeometry(.9, 0), new THREE.MeshBasicMaterial({ color: 0xbff4ff, wireframe: true })); HUB.holo.position.set(0, 3.2, -40); g.add(HUB.holo);
+  // Workshop: steel garage with a roll-up door, crane arm, drums and warm interior light
+  const wsPaint = paintMat(0xd9a65b);
+  g.add(box(9, 5, 7, wsPaint, -12, 2.5, -27), box(9.4, .5, 7.4, steel, -12, 5.2, -27), box(.6, 5, 7.2, steel, -7.4, 2.5, -27), box(.6, 5, 7.2, steel, -16.6, 2.5, -27));
+  g.add(win(5, 3.4, new THREE.MeshStandardMaterial({ color: 0x1a1f3a, roughness: .4, metalness: .6 }), -12, 1.8, -23.48)); // roll-up door, half open feel
+  g.add(win(4.6, 1.2, amberGlass, -12, 3.9, -23.47));
+  g.add(win(1.6, 1.1, amberGlass, -7.09, 3.2, -25, Math.PI / 2), win(1.6, 1.1, amberGlass, -7.09, 3.2, -29, Math.PI / 2));
+  const crane = new THREE.Group(); crane.position.set(-12, 5.5, -27); crane.add(cyl(.2, .25, 3, steel, 0, 1.5, 0, 8), box(5, .3, .3, steel, -1.5, 3, 0), box(.12, 1.8, .12, steel, -3.6, 2, 0), box(.7, .5, .6, rust, -3.6, 1, 0)); g.add(crane);
+  g.add(cyl(.5, .5, 1.1, rust, -8.2, .55, -22.2, 12), cyl(.5, .5, 1.1, paintMat(0x3b6ea8), -9.2, .55, -21.6, 12), box(1.4, 1, 1.2, paintMat(0x6a5540), -15.5, .5, -22.5));
+  g.add(lamp(-12, 3.2, -22.5, 0xffb547, 12, 1.8));
+  // Market: three stalls with striped awnings, crates and a string of lanterns
+  const stripe = new THREE.MeshStandardMaterial({ map: awningTexture(), roughness: .9, side: THREE.DoubleSide });
+  [[8.5, -27, 0xff6b6b], [12, -27, 0x4ee59a], [15.5, -27, 0x5fe3ff]].forEach(([x, z, col]) => {
+    g.add(box(3, 1, 1.4, paintMat(0x7a5a3a), x, .5, z + 2), box(3.2, .14, 1.6, paintMat(0x4a3523), x, 1.05, z + 2));
+    [-1.4, 1.4].forEach(dx => g.add(cyl(.06, .06, 3.2, steel, x + dx, 1.6, z + 1.4, 6), cyl(.06, .06, 2.6, steel, x + dx, 1.3, z + 2.7, 6)));
+    const aw = new THREE.Mesh(new THREE.PlaneGeometry(3.4, 1.9), stripe); aw.position.set(x, 3, z + 2.05); aw.rotation.x = -Math.PI / 2 + .35; aw.castShadow = true; g.add(aw);
+    g.add(box(.7, .7, .7, paintMat(col), x - .9, 1.45, z + 1.9), box(.5, .5, .5, paintMat(0xc9b36a), x + .6, 1.35, z + 2.1));
+  });
+  g.add(box(9, 4, 5, paintMat(0x8c6a4a), 12, 2, -30), box(9.4, .4, 5.4, rust, 12, 4.1, -30));
+  for (let i = 0; i < 7; i++) { const l = new THREE.Mesh(new THREE.SphereGeometry(.14, 8, 6), new THREE.MeshBasicMaterial({ color: [0xffb547, 0xff6b6b, 0x4ee59a, 0x5fe3ff][i % 4] })); l.position.set(8 + i * 1.3, 3.6 - Math.sin(i / 6 * Math.PI) * .4, -23.6); g.add(l); }
+  g.add(lamp(12, 3.4, -24, 0xffc98a, 12, 1.4));
+  // Academy: dome on a drum with pillars, a blue doorway and a book-stack sign
+  const acPaint = paintMat(0xc9d2e8);
+  g.add(cyl(4.6, 4.8, 3.2, acPaint, -12, 1.6, -9, 32));
+  const dome = sh(new THREE.Mesh(new THREE.SphereGeometry(4.6, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2), new THREE.MeshStandardMaterial({ color: 0x5fe3ff, roughness: .25, metalness: .6 }))); dome.position.set(-12, 3.2, -9); g.add(dome);
+  for (let i = 0; i < 8; i++) { const a = i / 8 * Math.PI * 2; g.add(cyl(.22, .26, 3.2, acPaint, -12 + Math.cos(a) * 5.4, 1.6, -9 + Math.sin(a) * 5.4, 10)); }
+  g.add(cyl(5.9, 6.1, .3, concrete, -12, .15, -9, 32), box(11.4, .3, 11.4, acPaint, -12, 3.3, -9));
+  g.add(win(2, 2.6, cyanGlass, -12, 1.4, -3.78)); g.add(lamp(-12, 2.4, -2.8, 0x5fe3ff, 12, 1.6));
+  // Hangar: big shed with a curved roof, open front, lit interior and a parked spare mech silhouette
+  const hgPaint = paintMat(0x4a5a8a);
+  g.add(box(10, 4, 8, hgPaint, 12, 2, -10));
+  const roof = sh(new THREE.Mesh(new THREE.CylinderGeometry(5.1, 5.1, 8.2, 24, 1, false, 0, Math.PI), steel)); roof.rotation.z = Math.PI / 2; roof.rotation.y = Math.PI / 2; roof.position.set(12, 4, -10); roof.scale.set(.7, 1, 1); g.add(roof);
+  g.add(win(7, 3.4, new THREE.MeshStandardMaterial({ color: 0x0b1023, emissive: 0x1a2a55, emissiveIntensity: .8 }), 12, 1.9, -5.98));
+  g.add(win(6, .5, amberGlass, 12, 3.9, -5.97)); g.add(lamp(12, 3.5, -5.5, 0xffb547, 14, 1.6));
+  const spare = makeMech(0x6f7a99); spare.scale.setScalar(.9); spare.position.set(12, 0, -9.2); spare.rotation.y = .4; g.add(spare); HUB.spare = spare;
+  // Notice board: a lit billboard on two posts
+  g.add(cyl(.12, .14, 3.2, steel, -1.3, 1.6, -16, 8), cyl(.12, .14, 3.2, steel, 1.3, 1.6, -16, 8), box(3.2, 2, .18, paintMat(0x2a2f55), 0, 2.6, -16));
+  HUB.board = new THREE.Mesh(new THREE.PlaneGeometry(2.9, 1.7), new THREE.MeshBasicMaterial({ map: boardTexture(0, 0), transparent: true })); HUB.board.position.set(0, 2.6, -15.9); g.add(HUB.board);
+  g.add(lamp(0, 4, -15, 0xfff0d0, 8, 1.2));
+  // Revision tower: a mast with a dish and a slowly turning radar
+  const tower = new THREE.Group(); tower.position.set(-5, 0, 0);
+  tower.add(cyl(.5, .7, 1, concrete, 0, .5, 0, 12), cyl(.14, .2, 9, steel, 0, 5.5, 0, 8));
+  for (let y = 2; y < 9; y += 1.5) tower.add(box(1.4, .08, .08, steel, 0, y, 0), box(.08, .08, 1.4, steel, 0, y, 0));
+  HUB.radar = new THREE.Group(); HUB.radar.position.y = 10; const dish = makeDish(); dish.scale.setScalar(.55); dish.position.y = -2; HUB.radar.add(dish); tower.add(HUB.radar);
+  const tl = new THREE.Mesh(new THREE.SphereGeometry(.14, 8, 6), new THREE.MeshBasicMaterial({ color: 0xff4d63 })); tl.position.y = 10.3; tower.add(tl); HUB.towerLight = tl;
+  g.add(tower);
+  // labels and door markers
+  SPOTS.forEach(s => {
+    const lab = textSprite(s.name.toUpperCase(), s.id === 'launch' ? '#ffb547' : '#eef1ff', s.id === 'launch' ? 7 : s.id === 'notice' ? 3.2 : 4.6);
+    lab.position.set(s.x, s.id === 'launch' ? 9.5 : s.id === 'notice' ? 4.4 : s.id === 'revision' ? 11.5 : 6.8, s.z); g.add(lab); HUB.labels.push(lab);
+    const ring = new THREE.Mesh(new THREE.RingGeometry(1.4, 1.75, 40), new THREE.MeshBasicMaterial({ color: 0x5fe3ff, transparent: true, opacity: .35, side: THREE.DoubleSide, depthWrite: false }));
+    ring.rotation.x = -Math.PI / 2; ring.position.set(s.door[0], .08, s.door[1]); g.add(ring); s.ring = ring;
+  });
+  HUB.lights.forEach(l => g.add(l));
+}
+function plazaTexture() {
+  const c = document.createElement('canvas'); c.width = 512; c.height = 1024; const x = c.getContext('2d');
+  x.fillStyle = '#4b4650'; x.fillRect(0, 0, 512, 1024);
+  for (let i = 0; i < 6000; i++) { x.fillStyle = Math.random() < .5 ? 'rgba(30,26,36,.25)' : 'rgba(230,224,232,.12)'; const s = 1 + Math.random() * 3; x.fillRect(Math.random() * 512, Math.random() * 1024, s, s); }
+  x.strokeStyle = 'rgba(25,20,30,.45)'; x.lineWidth = 3; for (let y = 0; y <= 1024; y += 128) { x.beginPath(); x.moveTo(0, y); x.lineTo(512, y); x.stroke(); } for (let xx = 0; xx <= 512; xx += 128) { x.beginPath(); x.moveTo(xx, 0); x.lineTo(xx, 1024); x.stroke(); }
+  x.fillStyle = 'rgba(255,181,71,.7)'; for (let y = 40; y < 1024; y += 90) x.fillRect(248, y, 16, 50);
+  x.strokeStyle = 'rgba(95,227,255,.55)'; x.lineWidth = 6; x.beginPath(); x.arc(256, 128, 110, 0, Math.PI * 2); x.stroke();
+  for (let i = 0; i < 30; i++) { x.fillStyle = 'rgba(20,16,24,.35)'; x.beginPath(); x.ellipse(Math.random() * 512, Math.random() * 1024, 6 + Math.random() * 30, 4 + Math.random() * 18, Math.random() * 3, 0, 6.28); x.fill(); }
+  const t = new THREE.CanvasTexture(c); t.anisotropy = 8; return t;
+}
+function awningTexture() {
+  const c = document.createElement('canvas'); c.width = 128; c.height = 64; const x = c.getContext('2d');
+  for (let i = 0; i < 8; i++) { x.fillStyle = i % 2 ? '#f4efe6' : '#d9533f'; x.fillRect(i * 16, 0, 16, 64); }
+  const t = new THREE.CanvasTexture(c); t.wrapS = THREE.RepeatWrapping; t.repeat.set(2, 1); return t;
+}
+function boardTexture(parcels, bounties) {
+  const c = document.createElement('canvas'); c.width = 512; c.height = 300; const x = c.getContext('2d');
+  x.fillStyle = '#f1e7cf'; x.fillRect(0, 0, 512, 300);
+  x.fillStyle = '#2b1900'; x.font = '700 44px "Chakra Petch", system-ui, sans-serif'; x.textAlign = 'center'; x.fillText('NOTICE BOARD', 256, 60);
+  x.font = '500 30px Lexend, system-ui, sans-serif';
+  x.fillStyle = parcels ? '#b9761d' : '#6a6a6a'; x.fillText(parcels ? parcels + ' parcel' + (parcels > 1 ? 's' : '') + ' waiting' : 'No parcels', 256, 140);
+  x.fillStyle = bounties ? '#1d6a8a' : '#6a6a6a'; x.fillText(bounties ? bounties + ' bount' + (bounties > 1 ? 'ies' : 'y') + ' open' : 'No bounties', 256, 200);
+  x.fillStyle = '#c9b36a'; [[40, 40], [470, 40], [40, 260], [470, 260]].forEach(([px, py]) => { x.beginPath(); x.arc(px, py, 9, 0, 6.28); x.fill(); });
+  return new THREE.CanvasTexture(c);
+}
+
+/* ---------- entering and leaving ---------- */
+function startBase() {
+  if (G.on && !G.demo) return false;
+  if (!hubAvailable() || !init3D()) return false;
+  if (G.demo) stopDemo();
+  buildBase();
+  Object.assign(G, freshState({ hub: true, mission: { kind: 'hub', topics: [] }, waves: [[]], mag: 1, ammo: 1, bossDone: true }));
+  G.player = { x: 2, z: -4, r: 1.3, a: -Math.PI / 2, stun: 0, mx: 0, mz: 0, face: -Math.PI / 2 };
+  G.mode3d = true;
+  const stage = $('#baseStage'); stage.prepend($('#gl')); $('#gl').hidden = false;
+  showScreen('base');
+  resizeCanvas(); resetScene();
+  R3.base.visible = true; R3.pylons.visible = false; R3.wall.visible = false; R3.wallLine.visible = false;
+  HUB.on = true; HUB.near = null; HUB.camX = 1; HUB.camZ = 2;
+  $('#baseTouch').hidden = !TOUCH.on;
+  refreshBoard();
+  updBaseHUD();
+  G.last = performance.now(); cancelAnimationFrame(G.raf); G.raf = requestAnimationFrame(frame);
+  AU.music.start(0);
+  return true;
+}
+function stopBase() {
+  if (!G.hub) return;
+  G.on = false; G.hub = false; HUB.on = false; cancelAnimationFrame(G.raf);
+  if (R3.ok) { clearDynamic(); R3.base.visible = false; R3.wall.visible = true; R3.wallLine.visible = true; R3.camera.clearViewOffset(); }
+  $('#scr-game').prepend($('#gl'));
+  AU.music.stop();
+}
+function refreshBoard() { if (HUB.board) { HUB.board.material.map.dispose(); HUB.board.material.map = boardTexture(openGifts().length, activeBounties().length); HUB.board.material.needsUpdate = true; } }
+function updBaseHUD() {
+  const el = $('#baseHud'); if (!el) return;
+  el.innerHTML = `<span class="bchip"><b class="num">${fmtNum(S.credits || 0)}</b> Credits</span><span class="bchip"><b class="num">${fmtNum(S.scrap || 0)}</b> scrap</span><span class="bchip"><b class="num">${fmtNum(S.xp)}</b> XP · ${esc(rankOf(S.xp).name)}</span>`;
+}
+function updateHub(dt) {
+  const P = G.player, k = G.keys;
+  let mx = (k.ArrowRight || k.d ? 1 : 0) - (k.ArrowLeft || k.a ? 1 : 0), mz = (k.ArrowDown || k.s ? 1 : 0) - (k.ArrowUp || k.w ? 1 : 0);
+  if (G.joy.x || G.joy.y) { mx = G.joy.x; mz = G.joy.y; }
+  const ml = Math.hypot(mx, mz); if (ml > 1) { mx /= ml; mz /= ml; }
+  P.mx = mx; P.mz = mz;
+  if (ml > .05) { P.face = Math.atan2(mz, mx); P.x += mx * 11 * dt; P.z += mz * 11 * dt; }
+  P.a = P.face;
+  // keep out of the buildings, and inside the plaza
+  SPOTS.forEach(s => { const d = Math.hypot(P.x - s.x, P.z - s.z), min = s.r + P.r; if (d < min && d > 0) { P.x = s.x + (P.x - s.x) / d * min; P.z = s.z + (P.z - s.z) / d * min; } });
+  P.x = clamp(P.x, -14.5, 14.5); P.z = clamp(P.z, -48, 1);
+  // which door is he standing at
+  let near = null, bd = 4.2;
+  SPOTS.forEach(s => { const d = Math.hypot(P.x - s.door[0], P.z - s.door[1]); if (d < bd) { bd = d; near = s; } });
+  if (near !== HUB.near) { HUB.near = near; const b = $('#basePrompt'); if (near) { b.hidden = false; b.innerHTML = `<b>${esc(near.name)}</b><span>${esc(near.verb)}</span><kbd>${TOUCH.on ? 'Tap' : 'E'}</kbd>`; } else b.hidden = true; }
+  SPOTS.forEach(s => { if (s.ring) { s.ring.material.opacity = s === near ? .85 : .3; s.ring.scale.setScalar(s === near ? 1 + Math.sin(G.t * 6) * .08 : 1); } });
+  // dust under the feet while walking
+  if (ml > .05 && Math.random() < .5) G.parts.push({ x: P.x + (Math.random() - .5), y: .2, z: P.z + (Math.random() - .5), vx: -mx * 2, vy: 1.2, vz: -mz * 2, life: .5, max: .6, col: '#9a8a80' });
+  G.parts.forEach(p => { p.x += p.vx * dt; p.y += p.vy * dt; p.z += p.vz * dt; p.vy -= 2 * dt; p.life -= dt; });
+  G.parts = G.parts.filter(p => p.life > 0);
+  // props
+  if (HUB.radar) HUB.radar.rotation.y += dt * .6;
+  if (HUB.holo) { HUB.holo.rotation.y += dt; HUB.holo.position.y = 3.2 + Math.sin(G.t * 2) * .3; }
+  if (HUB.towerLight) HUB.towerLight.visible = Math.floor(G.t * 1.5) % 2 === 0;
+  if (HUB.spare) animateMech(HUB.spare, dt, 0, 0, HUB.spare.rotation.y + Math.PI / 2, G.t);
+}
+function hubCamera(dt) {
+  const { camera } = R3, P = G.player, asp = G.W / G.H, wide = clamp((asp - .6) / (1.5 - .6), 0, 1), k = 1 - Math.exp(-dt * 3.2);
+  HUB.camX += (P.x * .6 - HUB.camX) * k; HUB.camZ += (P.z - HUB.camZ) * k;
+  camera.fov = lerp(60, 46, wide);
+  if (wide < .5) camera.setViewOffset(G.W, G.H * 1.15, 0, G.H * .15, G.W, G.H); else camera.clearViewOffset();
+  camera.updateProjectionMatrix();
+  camera.position.set(HUB.camX, lerp(8.5, 7, wide), HUB.camZ + lerp(13, 12, wide));
+  R3.tmp2.set(HUB.camX + (P.x - HUB.camX) * .4, 1.6, HUB.camZ - 6);
+  camera.lookAt(R3.tmp2);
+}
+function hubInteract() {
+  const s = HUB.near; if (!s || !HUB.on) return;
+  AU.click();
+  if (s.id === 'launch') showScreen('map');
+  else if (s.id === 'revision') briefRevision();
+  else if (s.id === 'hangar') showScreen('hangar');
+  else if (s.id === 'academy') academyModal();
+  else if (s.id === 'workshop') workshopModal();
+  else if (s.id === 'market') marketModal();
+  else if (s.id === 'notice') noticeModal();
+}
+function backToBase() { if (hubAvailable()) { if (!startBase()) showScreen('home'); } else showScreen('home'); }
+
+/* ---------- the buildings' interiors ---------- */
+function academyModal() {
+  const list = SUBJECTS.map(s => `<div class="lvgroup"><div class="eyebrow">${esc(s.name)}</div><div class="acad">${scopedTopics(s.id).filter(t => lessonOf(t.id)).map(t => `<button class="skin${trained(t.id) ? ' on' : ''}" type="button" data-t="${t.id}"><span class="nm">${esc(t.name)}</span><small>${trained(t.id) ? 'Trained · replay' : 'Not trained yet · +' + TRAIN_XP + ' XP'}</small></button>`).join('')}</div></div>`).join('');
+  modal(`<span class="eyebrow">Academy</span><h2>Training</h2><p class="muted">Five quick cards per topic. Train a topic to open its missions, or come back to brush up.</p><div class="acadwrap">${list}</div>
+    <div class="acts"><button class="btn ghost" type="button" data-x>Back</button></div>`, c => {
+    $('[data-x]', c).onclick = closeModal;
+    $$('[data-t]', c).forEach(b => b.onclick = () => { closeModal(); const t = TOPIC[b.dataset.t]; startTraining(t, () => launchCampaign(missionFor(t, 0))); });
+  });
+}
+function workshopModal() {
+  S.upgrades = S.upgrades || {};
+  const draw = () => modal(`<span class="eyebrow">Workshop</span><div class="row" style="justify-content:space-between"><h2 style="margin:0">Upgrades</h2><span class="bchip"><b class="num">${fmtNum(S.credits || 0)}</b> Credits</span></div>
+    <p class="muted" style="font-size:.9rem">Upgrades make the mech stronger. They never skip a code: Credits buy power, not answers.</p>
+    <div class="upgrades">${UPGRADES.map(u => { const l = upLvl(u.id), maxed = l >= u.max, cost = maxed ? 0 : u.cost[l], can = (S.credits || 0) >= cost; return `<div class="upg${maxed ? ' maxed' : ''}"><div class="uphead"><b>${esc(u.name)}</b><span class="pips">${Array.from({ length: u.max }, (_, i) => `<i class="${i < l ? 'on' : ''}"></i>`).join('')}</span></div><small>${esc(u.desc)}</small>${l ? `<small class="fx">${esc(u.fx(l))}</small>` : ''}<button class="btn small ${maxed ? 'ghost' : can ? 'primary' : ''}" type="button" data-buy="${u.id}" ${maxed || !can ? 'disabled' : ''}>${maxed ? 'Maxed' : (l ? 'Upgrade' : 'Buy') + ' · ' + fmtNum(cost)}</button></div>`; }).join('')}</div>
+    <div class="acts"><button class="btn ghost" type="button" data-x>Back</button></div>`, c => {
+    $('[data-x]', c).onclick = closeModal;
+    $$('[data-buy]', c).forEach(b => b.onclick = () => { const u = UPGRADES.find(x => x.id === b.dataset.buy), l = upLvl(u.id), cost = u.cost[l]; if ((S.credits || 0) < cost) return; S.credits -= cost; S.upgrades[u.id] = l + 1; save(true); AU.unlock(); toast(u.name + ' ' + (u.max > 1 ? 'level ' + (l + 1) : 'installed') + '.'); updBaseHUD(); draw(); });
+  });
+  draw();
+}
+function marketModal() {
+  S.items = S.items || {};
+  const draw = () => modal(`<span class="eyebrow">Market</span><div class="row" style="justify-content:space-between"><h2 style="margin:0">Trade</h2><span class="bchip"><b class="num">${fmtNum(S.credits || 0)}</b> Credits</span></div>
+    <div class="panel" style="margin:0"><div class="row" style="justify-content:space-between"><div><b>Scrap</b><div class="muted" style="font-size:.88rem">Every drone you destroy leaves scrap. The Market pays ${SCRAP_PRICE} Credits each.</div></div><button class="btn small ${S.scrap ? 'cyan' : ''}" type="button" data-sell ${S.scrap ? '' : 'disabled'}>Sell ${fmtNum(S.scrap || 0)} scrap · ${fmtNum((S.scrap || 0) * SCRAP_PRICE)}</button></div></div>
+    <h3 class="eyebrow" style="margin-top:4px">Boosters for your next mission</h3>
+    <div class="upgrades">${BOOSTERS.map(b => { const n = itemN(b.id), can = (S.credits || 0) >= b.cost; return `<div class="upg"><div class="uphead"><b><span class="bicon">${b.icon}</span>${esc(b.name)}</b><span class="muted num">own ${n}</span></div><small>${esc(b.desc)}</small><button class="btn small ${can ? 'primary' : ''}" type="button" data-item="${b.id}" ${can ? '' : 'disabled'}>Buy · ${fmtNum(b.cost)}</button></div>`; }).join('')}</div>
+    <p class="muted" style="font-size:.85rem">You pick which boosters to use on the mission screen before you launch.</p>
+    <div class="acts"><button class="btn ghost" type="button" data-x>Back</button></div>`, c => {
+    $('[data-x]', c).onclick = closeModal;
+    const sell = $('[data-sell]', c); if (sell) sell.onclick = () => { const n = S.scrap || 0; if (!n) return; S.scrap = 0; addCredits(n * SCRAP_PRICE); AU.pickup(); toast('Sold ' + fmtNum(n) + ' scrap for ' + fmtNum(n * SCRAP_PRICE) + ' Credits.'); updBaseHUD(); draw(); };
+    $$('[data-item]', c).forEach(b => b.onclick = () => { const it = BOOSTERS.find(x => x.id === b.dataset.item); if ((S.credits || 0) < it.cost) return; S.credits -= it.cost; S.items[it.id] = itemN(it.id) + 1; save(true); AU.click(); updBaseHUD(); draw(); });
+  });
+  draw();
+}
+function noticeModal() {
+  const gs = openGifts(), bs = activeBounties();
+  modal(`<span class="eyebrow">Notice Board</span><h2>Parcels and bounties</h2>
+    ${CLOUD.state !== 'on' ? '<p class="muted">The board connects to the cloud. It is offline right now.</p>' : ''}
+    ${gs.length ? `<p><b>${gs.length} parcel${gs.length > 1 ? 's' : ''}</b> waiting for you.</p>` : ''}
+    ${bs.length ? bs.map(b => { const p = bountyProgress(b); return `<div class="bounty"><div class="row" style="justify-content:space-between"><b>${esc(b.title)}</b><span class="num" style="color:var(--amber-2)">${fmtNum(b.amount)} Credits</span></div><div class="xpbar"><i style="width:${p.pct}%"></i></div><div class="muted" style="font-size:.85rem">${p.have} of ${p.need}${b.note ? ' · "' + esc(b.note) + '"' : ''}</div></div>`; }).join('') : (gs.length ? '' : '<p class="muted">Nothing pinned up right now. A parent can send parcels and set bounties from the Parent panel.</p>')}
+    <div class="acts"><button class="btn ghost" type="button" data-x>Back</button>${gs.length ? '<button class="btn primary" type="button" data-open>Open parcels</button>' : ''}</div>`, c => {
+    $('[data-x]', c).onclick = closeModal;
+    const o = $('[data-open]', c); if (o) o.onclick = () => { closeModal(); showParcelsHere(); };
+  });
+}
+function showParcelsHere() {
+  const g = openGifts()[0]; if (!g) { refreshBoard(); return; }
+  AU.pickup();
+  modal(`<div class="debrief parcel"><span class="eyebrow">A parcel landed at the base</span><h2 class="dtitle">+${fmtNum(g.amount)} Credits</h2><p>From <b>${esc(g.fromName || 'a parent')}</b>${g.note ? `: "${esc(g.note)}"` : '.'}</p>
+    <div class="acts"><button class="btn primary" type="button" data-claim>Open it</button></div></div>`, c => {
+    $('[data-claim]', c).onclick = async () => { closeModal(); try { await awardsRef().doc(g.id).update({ status: 'claimed', claimedAt: Date.now() }); addCredits(g.amount); AU.unlock(); updBaseHUD(); } catch (e) { toast('Could not open the parcel. Try again in a moment.'); } setTimeout(showParcelsHere, 500); };
+  });
+}
+/* boosters chosen on the mission screen */
+function boosterRow() {
+  const owned = BOOSTERS.filter(b => itemN(b.id) > 0); if (!owned.length) return '';
+  G.useBoost = G.useBoost || {};
+  return `<div class="boostrow"><span class="eyebrow">Boosters</span>${owned.map(b => `<button class="mchip${G.useBoost[b.id] ? ' sel' : ''}" type="button" data-boost="${b.id}" aria-pressed="${!!G.useBoost[b.id]}"><span class="bicon">${b.icon}</span>${esc(b.name)}<small>own ${itemN(b.id)}</small></button>`).join('')}</div>`;
+}
+function bindBoosters(c, redraw) { $$('[data-boost]', c).forEach(b => b.onclick = () => { G.useBoost[b.dataset.boost] = !G.useBoost[b.dataset.boost]; AU.click(); redraw(); }); }
+function consumeBoosters() {
+  const used = {}; const u = G.useBoost || {};
+  BOOSTERS.forEach(b => { if (u[b.id] && itemN(b.id) > 0) { S.items[b.id]--; used[b.id] = true; } });
+  G.useBoost = {}; if (Object.keys(used).length) save();
+  return used;
+}
+
 /* ================= SCREENS ================= */
 let currentScreen = 'home';
 function showScreen(name) {
-  ['home', 'map', 'game', 'hangar', 'coach', 'learn', 'parent'].forEach(n => { $('#scr-' + n).hidden = n !== name; });
+  ['home', 'map', 'game', 'hangar', 'coach', 'learn', 'parent', 'base'].forEach(n => { $('#scr-' + n).hidden = n !== name; });
+  if (name !== 'base' && G.hub) stopBase();
   if (name === 'parent') parentInit();
   if (name !== 'parent' && PP.unsub) { PP.unsub(); PP.unsub = null; }
   if (name !== 'learn' && LS.on) { LS.on = false; stopSpeech(); }
   currentScreen = name;
   if (G.demo && name !== 'home') stopDemo();
-  if (name !== 'game' && G.on && !G.demo) stopMission();
+  if (name !== 'game' && G.on && !G.demo && !G.hub) stopMission();
   if (name !== 'coach') { coachUnlocked = false; REPORT = null; }
   if (name === 'home') renderHome();
   if (name === 'map') renderMap();
@@ -5487,10 +5909,12 @@ function renderHome() {
     </div>`;
     cloudBadge(); renderNotice(); setTimeout(() => { checkBounties().then(showParcels); }, 600);
     $('#homeActs').innerHTML = `<div class="homeacts">
-      <button class="btn primary" type="button" id="btnCampaign"><span>Campaign<small>Missions by topic, boss every third</small></span></button>
+      ${hubAvailable() ? '<button class="btn primary big" type="button" id="btnBase"><span>Enter the Base<small>Walk to the Launch Pad, Academy, Workshop and Market</small></span></button>' : ''}
+      <button class="btn ${hubAvailable() ? '' : 'primary'}" type="button" id="btnCampaign"><span>Campaign<small>Missions by topic, boss every third</small></span></button>
       <button class="btn cyan" type="button" id="btnRevision"><span>Revision Ops<small>Mixed codes from the exam scope</small></span></button>
       <button class="btn" type="button" id="btnHangar"><span>Hangar<small>Mech colours and weapon skins</small></span></button>
     </div>`;
+    const bb = $('#btnBase'); if (bb) bb.onclick = () => { AU.ensure(); if (!startBase()) showScreen('map'); };
     $('#btnCampaign').onclick = () => { AU.ensure(); showScreen('map'); };
     $('#btnRevision').onclick = () => { AU.ensure(); briefRevision(); };
     $('#btnHangar').onclick = () => showScreen('hangar');
@@ -5574,9 +5998,11 @@ function briefTopic(t) {
     ${L ? `<div class="trainrow${trained(t.id) ? ' done' : ''}"><div><b>${trained(t.id) ? 'Training done' : 'Training'}</b><span>${trained(t.id) ? 'Five quick cards. Do it again any time.' : 'Five quick cards: the idea, an example, two to try, and a tip. +' + TRAIN_XP + ' XP.'}</span></div><button class="btn small ${trained(t.id) ? 'ghost' : 'cyan'}" type="button" data-train>${trained(t.id) ? 'Replay' : 'Start training'}</button></div>` : ''}
     <div class="missions">${[0, 1, 2].map(i => `<button class="mchip" type="button" data-i="${i}" aria-pressed="${i === sel}"${i > m.done ? ' disabled' : ''}>Mission ${i + 1}<small>${bl.length ? esc(bl[i % bl.length].title) : (i === 2 ? 'Boss shield' : 'Three waves')}${m.stars && m.stars[i] ? ' · ' + '★'.repeat(m.stars[i]) : ''}</small></button>`).join('')}</div>
     <p class="muted">${sel === 2 ? 'Two waves, then a shielded boss. Its shield only drops when you crack a harder code.' : 'Your magazine holds ' + magSize() + ' rounds. When it empties, crack a ' + esc(t.name.toLowerCase()) + ' code to reload.'} ${bl.length ? 'You read a short text first. Every code is about it.' : t.subject === 'maths' ? 'Grab scrap paper for working out.' : ''}</p>
+    ${boosterRow()}
     ${CONTROLS_HTML()}
     <div class="acts"><button class="btn ghost" type="button" data-x>Back</button>${gate ? '<button class="btn primary" type="button" data-train2>Train, then launch</button>' : '<button class="btn primary" type="button" data-go>Launch</button>'}</div>`, c => {
-      $$('.mchip', c).forEach(b => b.onclick = () => { sel = +b.dataset.i; draw(); });
+      $$('.mchip[data-i]', c).forEach(b => b.onclick = () => { sel = +b.dataset.i; draw(); });
+      bindBoosters(c, draw);
       $('[data-x]', c).onclick = closeModal;
       const go = $('[data-go]', c); if (go) go.onclick = () => { closeModal(); launchCampaign(missionFor(t, sel)); };
       $$('[data-train], [data-train2]', c).forEach(b => b.onclick = () => { closeModal(); AU.ensure(); startTraining(t, () => launchCampaign(missionFor(t, 0))); });
@@ -5591,9 +6017,11 @@ function briefRevision() {
     modal(`<span class="eyebrow">Revision Ops</span><h2>Mixed codes</h2>
       <div class="missions">${opts.map(x => `<button class="mchip" type="button" data-s="${x.id}" aria-pressed="${x.id === o.id}"${x.ts.length ? '' : ' disabled'}>${esc(x.name)}<small>${x.ts.length} topics</small></button>`).join('')}</div>
       <p>Every reload code comes from a different topic in the exam scope. Three waves, then a boss.${o.id === 'english' || o.id === 'all' ? ' Reading codes show their text right in the code card.' : ''}</p>
+      ${boosterRow()}
       ${CONTROLS_HTML()}
       <div class="acts"><button class="btn ghost" type="button" data-x>Back</button><button class="btn primary" type="button" data-go${o.ts.length ? '' : ' disabled'}>Launch</button></div>`, c => {
       $$('[data-s]', c).forEach(b => b.onclick = () => { revSubject = b.dataset.s; draw(); });
+      bindBoosters(c, draw);
       $('[data-x]', c).onclick = closeModal;
       $('[data-go]', c).onclick = () => { if (!o.ts.length) return; closeModal(); launch({ kind: 'revision', subject: o.id, topics: o.ts.map(t => t.id), index: 1, boss: true, label: 'Revision Ops · ' + o.name }); };
     });
@@ -5628,12 +6056,12 @@ function missionWon() {
     <div class="bigstars" aria-label="${stars} of 3 stars">${[0, 1, 2].map(i => `<span class="dstar" data-on="${i < stars}">★</span>`).join('')}</div>
     <p class="dnote">${st.first} of ${st.asked} codes cracked on the first try${stars < 3 ? '. Get 80% first try for three stars.' : '. Top marks, pilot!'}</p>
     <div class="dscore"><span class="lab">Score</span><b class="num" id="dScore">0</b>${newBest && prevBest ? '<span class="best">New best!</span>' : prevBest ? `<span class="prev">Best ${fmtNum(prevBest)}</span>` : ''}</div>
-    <div class="dcred"><span>Credits earned</span><b class="num">+${fmtNum((st.credits || 0))}</b><span class="muted">now ${fmtNum(S.credits || 0)}</span></div>
+    <div class="dcred"><span>Credits earned</span><b class="num">+${fmtNum((st.credits || 0))}</b><span class="muted">now ${fmtNum(S.credits || 0)}</span>${st.scrap ? `<span class="muted">· scrap +${st.scrap}</span>` : ''}</div>
     <div class="stats four"><div class="stat"><b class="num">${G.kills}</b><span>drones down</span></div><div class="stat"><b class="num">x${G.bestCombo}</b><span>best combo</span></div><div class="stat"><b class="num">${Math.round(G.base)}%</b><span>array left</span></div><div class="stat"><b class="num">${acc}%</b><span>shots on target</span></div></div>
     ${medals.length ? `<div class="medalrow">${medals.map((x, i) => `<div class="medal" style="animation-delay:${2.6 + i * .4}s"><span class="ic">${x.icon}</span><div><b>Medal: ${esc(x.name)}</b><span>${esc(x.desc)}</span></div></div>`).join('')}</div>` : ''}
     <div class="dxp"><div class="row" style="justify-content:space-between;font-size:.9rem"><span>${esc(r.name)}${r.i > r0.i ? ' <span class="rankup">Rank up!</span>' : ''}</span><span class="muted num">+${st.xp} XP</span></div><div class="xpbar" style="margin-top:6px"><i id="dXp" style="width:${r.i > r0.i ? 0 : Math.round(r0.pct * 100)}%"></i></div></div>
     <div class="acts"><button class="btn ghost" type="button" data-map>${m.kind === 'campaign' ? 'Map' : 'Home'}</button>${nextIdx != null ? '<button class="btn primary" type="button" data-next>Next mission</button>' : (m.kind === 'revision' ? '<button class="btn primary" type="button" data-again>Again</button>' : '')}</div></div>`, c => {
-    $('[data-map]', c).onclick = () => { closeModal(); showScreen(m.kind === 'campaign' ? 'map' : 'home'); };
+    $('[data-map]', c).onclick = () => { closeModal(); if (m.kind === 'campaign') showScreen('map'); else backToBase(); };
     const n = $('[data-next]', c); if (n) n.onclick = () => { closeModal(); launchCampaign(missionFor(TOPIC[m.topics[0]], nextIdx)); };
     const a = $('[data-again]', c); if (a) a.onclick = () => { closeModal(); launch(m); };
     // stars pop in one by one, then the score counts up and the XP bar fills
@@ -5656,12 +6084,12 @@ function missionFailed() {
     <div class="stats four"><div class="stat"><b class="num">${G.kills}</b><span>drones down</span></div><div class="stat"><b class="num">${st.first}/${st.asked}</b><span>codes first try</span></div><div class="stat"><b class="num">x${G.bestCombo}</b><span>best combo</span></div><div class="stat"><b class="num">+${st.xp}</b><span>XP earned</span></div></div>
     <p class="muted">Tips: right answers on the first try repair the array and charge Overdrive. Grab the green gems to repair it too.</p>
     <div class="acts"><button class="btn ghost" type="button" data-map>${m.kind === 'campaign' ? 'Map' : 'Home'}</button><button class="btn primary" type="button" data-retry>Try again</button></div></div>`, c => {
-    $('[data-map]', c).onclick = () => { closeModal(); showScreen(m.kind === 'campaign' ? 'map' : 'home'); };
+    $('[data-map]', c).onclick = () => { closeModal(); if (m.kind === 'campaign') showScreen('map'); else backToBase(); };
     $('[data-retry]', c).onclick = () => { closeModal(); launch(m); };
   });
 }
 function pauseMenu() {
-  if (!G.on || G.demo || G.ending || !$('#modal').hidden) return;
+  if (!G.on || G.demo || G.hub || G.ending || !$('#modal').hidden) return;
   G.paused = true; G.firing = false;
   modal(`<h2>Paused</h2>
     <label class="toggle"><input type="checkbox" id="pMute" ${S.settings.mute ? '' : 'checked'}> Sound</label>
@@ -5674,7 +6102,7 @@ function pauseMenu() {
     $('#pFx', c).onchange = e => { S.settings.reducedFx = e.target.checked; save(); };
     $('#pRead', c).onchange = e => { S.settings.autoRead = e.target.checked; save(); };
     $('[data-res]', c).onclick = () => { closeModal(); if (!QF.open) { G.paused = false; G.last = performance.now(); } };
-    $('[data-quit]', c).onclick = () => { closeModal(); const m = G.mission; showScreen(m.kind === 'campaign' ? 'map' : 'home'); };
+    $('[data-quit]', c).onclick = () => { closeModal(); const m = G.mission; if (m.kind === 'campaign') showScreen('map'); else backToBase(); };
   });
 }
 
@@ -6016,7 +6444,8 @@ async function unpackReport(code) {
 
 /* ================= BOOT ================= */
 function start(data) {
-  $$('[data-go="home"]').forEach(b => b.onclick = () => showScreen('home'));
+  $$('[data-go="home"]').forEach(b => b.onclick = () => backToBase());
+  $$('[data-go="title"]').forEach(b => b.onclick = () => showScreen('home'));
   $('#btnCoach').onclick = () => showScreen('coach');
   $('#btnParent').onclick = () => showScreen('parent');
   if (S.pilot) setTimeout(() => cloudInit(), 1500);
